@@ -11,7 +11,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
  * @author: zf
  * @create: 2019-04-09 17:02
  **/
-@Document(indexName = "testIndex",type = "test",shards = 5,replicas = 1)
+@Document(indexName = "test_index",type = "test",shards = 5,replicas = 1)
 public class EsTest {
     @Id
     private Long id;

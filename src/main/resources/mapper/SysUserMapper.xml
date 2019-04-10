@@ -79,10 +79,105 @@
     </where>
   </sql>
   <select id="queryTotal" parameterType="BaseQuery" resultType="int">
-    select count(*) from t_sys_user <include refid="whereSql"/>
+    select count(*) from t_sys_user <include refid="whereSql" />
   </select>
   <select id="query" parameterType="BaseQuery" resultMap="BaseResultMap">
-    select * from t_sys_user <include refid="whereSql"/> <if test="sort!=null and sort!=''">ORDER BY ${sort} ${order} </if> limit #{start},#{rows}
+    select * from t_sys_user <include refid="whereSql" /> <if test="sort!=null and sort!=''">ORDER BY ${sort} ${order} </if> limit #{start},#{rows}
+  </select>
+  <delete id="deleteBatch">
+    delete from t_sys_user where id in 
+    <foreach close=")" collection="array" item="id" open="(" separator=",">
+      #{id}
+    </foreach>
+  </delete>
+  <update id="deleteLogic">
+    update t_sys_user set dataState = 0 where id in 
+    <foreach close=")" collection="array" item="id" open="(" separator=",">
+      #{id}
+    </foreach>
+  </update>
+  <resultMap id="BaseResultMap" type="com.myproject.domain.SysUser">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, username, password
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_sys_user
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_sys_user
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.myproject.domain.SysUser">
+    insert into t_sys_user (id, username, password
+      )
+    values (#{id,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.myproject.domain.SysUser">
+    insert into t_sys_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.myproject.domain.SysUser">
+    update t_sys_user
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.myproject.domain.SysUser">
+    update t_sys_user
+    set username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <sql id="whereSql">
+    <where>
+      <if test="q!=null and q!=''">
+        and name like CONCAT("%",#{q},"%")
+      </if>
+      <if test="dataState!=null">
+        and dataState=#{dataState}
+      </if>
+    </where>
+  </sql>
+  <select id="queryTotal" parameterType="BaseQuery" resultType="int">
+    select count(*) from t_sys_user <include refid="whereSql" />
+  </select>
+  <select id="query" parameterType="BaseQuery" resultMap="BaseResultMap">
+    select * from t_sys_user <include refid="whereSql" /> <if test="sort!=null and sort!=''">ORDER BY ${sort} ${order} </if> limit #{start},#{rows}
   </select>
   <delete id="deleteBatch">
     delete from t_sys_user where id in 

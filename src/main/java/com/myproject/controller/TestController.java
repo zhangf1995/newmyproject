@@ -38,7 +38,11 @@ public class TestController {
         esTest.setCategory("张张嘴");
         esTest.setPrice(3.01);
         esTest.setImages("1e1ee1e");
-        esTestService.save(esTest);
+        try{
+            esTestService.save(esTest);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 }
