@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<context id="Mysql" targetRuntime="MyBatis3">
+        <property name="javaFileEncoding" value="UTF-8"/>
+ 		<plugin type="com.myproject.generator.MyPlugin"/>
+        
+        <!--service接口-->
+        <plugin type="com.myproject.generator.TemplateFilePlugin">
+            <property name="targetProject" value=".\src\main\java"/>
+            <property name="targetPackage" value="com.myproject.service"/>
+            <property name="templatePath" value="generator/templates/IService.ftl"/>
+            <property name="fileName" value="I${tableClass.shortClassName}Service.java"/>
+            <property name="templateFormatter" value="com.myproject.generator.formatter.FreemarkerTemplateFormatter"/>
+        </plugin>
+        <!--service实现类-->
+        <plugin type="com.myproject.generator.TemplateFilePlugin">
+            <property name="targetProject" value=".\src\main\java"/>
+            <property name="targetPackage" value="com.myproject.service.impl"/>
+            <property name="templatePath" value="generator/templates/ServiceImpl.ftl"/>
+            <property name="fileName" value="${tableClass.shortClassName}ServiceImpl.java"/>
+            <property name="templateFormatter" value="com.myproject.generator.formatter.FreemarkerTemplateFormatter"/>
+        </plugin>
+        <!--Query类-->
+        <plugin type="com.myproject.generator.TemplateFilePlugin">
+            <property name="targetProject" value=".\src\main\java"/>
+            <property name="targetPackage" value="com.myproject.query"/>
+            <property name="templatePath" value="generator/templates/Query.ftl"/>
+            <property name="fileName" value="${tableClass.shortClassName}Query.java"/>
+            <property name="templateFormatter" value="com.myproject.generator.formatter.FreemarkerTemplateFormatter"/>
+        </plugin>
+        <!--Controller类-->
+        <plugin type="com.myproject.generator.TemplateFilePlugin">
+            <property name="targetProject" value=".\src\main\java"/>
+            <property name="targetPackage" value="com.myproject.controller"/>
+            <property name="templatePath" value="generator/templates/Controller.ftl"/>
+            <property name="fileName" value="${tableClass.shortClassName}Controller.java"/>
+            <property name="templateFormatter" value="com.myproject.generator.formatter.FreemarkerTemplateFormatter"/>
+        </plugin>
+     <!--   &lt;!&ndash;view/index.html&ndash;&gt;
+        <plugin type="com.foboth.eshop.generator.TemplateFilePlugin">
+            <property name="targetProject" value=".\src\main\resources\templates"/>
+            <property name="targetPackage" value="${tableClass.variableName}"/>
+            <property name="templatePath" value="generator/templates/view-index.ftl"/>
+            <property name="fileName" value="index.html"/>
+            <property name="templateFormatter" value="com.foboth.eshop.generator.formatter.FreemarkerTemplateFormatter"/>
+        </plugin>
+        &lt;!&ndash;view/form.html&ndash;&gt;
+        <plugin type="com.foboth.eshop.generator.TemplateFilePlugin">
+            <property name="targetProject" value=".\src\main\resources\templates"/>
+            <property name="targetPackage" value="${tableClass.variableName}"/>
+            <property name="templatePath" value="generator/templates/view-form.ftl"/>
+            <property name="fileName" value="form.html"/>
+            <property name="templateFormatter" value="com.foboth.eshop.generator.formatter.FreemarkerTemplateFormatter"/>
+        </plugin>
+        &lt;!&ndash;view/show.html&ndash;&gt;
+        <plugin type="com.foboth.eshop.generator.TemplateFilePlugin">
+            <property name="targetProject" value=".\src\main\resources\templates"/>
+            <property name="targetPackage" value="${tableClass.variableName}"/>
+            <property name="templatePath" value="generator/templates/view-show.ftl"/>
+            <property name="fileName" value="show.html"/>
+            <property name="templateFormatter" value="com.foboth.eshop.generator.formatter.FreemarkerTemplateFormatter"/>
+        </plugin>
+        &lt;!&ndash; view/model.js &ndash;&gt;
+        <plugin type="com.foboth.eshop.generator.TemplateFilePlugin">
+            <property name="targetProject" value=".\src\main\resources\static\public\js\model"/>
+            <property name="targetPackage" value=""/>
+            <property name="templatePath" value="generator/templates/view-model-js.ftl"/>
+            <property name="fileName" value="${tableClass.variableName}.js"/>
+            <property name="templateFormatter" value="com.foboth.eshop.generator.formatter.FreemarkerTemplateFormatter"/>
+        </plugin>
+        &lt;!&ndash;domain/consts locale&ndash;&gt;
+        <plugin type="com.foboth.eshop.generator.TemplateFilePlugin">
+            <property name="singleMode" value="false"/>
+            <property name="targetProject" value=".\src\main\resources\i18n"/>
+            <property name="targetPackage" value=""/>
+            <property name="templatePath" value="generator/templates/domain-locale.ftl"/>
+            <property name="fileName" value="domain-locale-temp.txt"/>
+            <property name="templateFormatter" value="com.foboth.eshop.generator.formatter.FreemarkerTemplateFormatter"/>
+        </plugin>-->
+        
+        <commentGenerator type="com.myproject.generator.MyCommentGenerator"/>
+
+
+
+		<!-- 配置数据库连接 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/myproject?characterEncoding=utf8"
+                        userId="root"
+                        password="root">
+             <!-- 针对oracle数据库 -->
+		    <property name="remarksReporting" value="true"></property>
+		    <!-- 针对mysql数据库 -->
+		    <property name="useInformationSchema" value="true"></property>
+        </jdbcConnection>
+
+		<javaModelGenerator targetPackage="com.myproject.domain"
+			targetProject=".\src\main\java">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+			<property name="rootClass" value="com.myproject.domain.BaseDomain"/>
+		</javaModelGenerator>
+
+		<sqlMapGenerator targetPackage="mapper"
+			targetProject=".\src\main\resources">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="com.myproject.mapper" targetProject=".\src\main\java">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+
+		
+        
+        <!-- 指定要逆向分析哪些表：根据表要创建javaBean -->
+		<table tableName="t_sys_user"
+			enableInsert="true"
+            enableDeleteByPrimaryKey="true"
+            enableSelectByPrimaryKey="true"
+            enableUpdateByPrimaryKey="true"
+            enableCountByExample="false"
+            enableDeleteByExample="false"
+            enableSelectByExample="false"
+            enableUpdateByExample="false"
+		>
+		<property name="useActualColumnNames" value="true"/>
+		<!-- <generatedKey column="id" sqlStatement="Mysql" identity="true"/> -->
+		<domainObjectRenamingRule searchString="^T" replaceString="" />
+		</table>
+    </context>
+</generatorConfiguration>
