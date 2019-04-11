@@ -102,7 +102,7 @@ public class MyPlugin extends PluginAdapter {
 		interfaze.addSuperInterface(fqjt);
 
 		/**
-		 * 添加import cn.cxby.cerp.mapper.BaseMapper;
+		 * 添加import com.myproject.mapper.BaseMapper;
 		 */
 		interfaze.addImportedType(imp);
 		/**

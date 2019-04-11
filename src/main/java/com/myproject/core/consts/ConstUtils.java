@@ -9,7 +9,7 @@ import java.lang.reflect.Field;
 import java.util.*;
 
 public class ConstUtils {
-	public static final String SCAN_PACKAGE_NAME = "cn.cxby.cerp.core.consts";
+	public static final String SCAN_PACKAGE_NAME = "com.myproject.core.consts";
 	public static final String MSG_CODE_PREFIX = "const.msg.code.";
 	public static final String BIS_CODE_PREFIX = "const.bis.code.";
 	private final Map<Integer,ConstMsg> CODESMAP = new TreeMap<Integer,ConstMsg>();

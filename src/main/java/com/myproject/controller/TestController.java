@@ -3,7 +3,9 @@ package com.myproject.controller;
 import com.myproject.consts.WebConsts;
 import com.myproject.es.esDomain.EsTest;
 import com.myproject.es.esService.EsTestService;
+import com.myproject.query.Ret;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,4 +47,9 @@ public class TestController {
         }
     }
 
+    @RequestMapping("/esSearch/{id}")
+    public Ret esSearch(@PathVariable Long id){
+        EsTest esTest = esTestService.findById(id).get();
+        return Ret.me().setData(esTest);
+    }
 }
