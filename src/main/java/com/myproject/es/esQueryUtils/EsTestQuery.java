@@ -65,6 +65,8 @@ public class EsTestQuery {
         //nativeSearchQueryBuilder.withIndices("");
         //指定type
         //nativeSearchQueryBuilder.withTypes("");
+        //条件过滤
+        //nativeSearchQueryBuilder.withFilter(QueryBuilders.termQuery())
         //将搜索条件设置到构建中
         nativeSearchQueryBuilder.withQuery(builder);
         //将分页设置到构建中

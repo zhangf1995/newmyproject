@@ -39,7 +39,7 @@ public class TestController {
     public void save(){
         EsTest esTest = new EsTest();
         esTest.setId(new Date().getTime());
-        esTest.setTitle("李四中国");
+        esTest.setTitle("李四中");
         esTest.setBrand("李四皮革");
         esTest.setCategory("张张嘴");
         esTest.setPrice(3.01);
