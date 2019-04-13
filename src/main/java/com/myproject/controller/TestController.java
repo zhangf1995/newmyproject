@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @program: myproject
@@ -61,6 +63,7 @@ public class TestController {
     //高级查询一
     @RequestMapping("/esSearchOne")
     public Ret esSearchOne(){
+        ConcurrentHashMap<String,String> concurrentHashMap = new ConcurrentHashMap<>();
         List<EsTest> list = esTestQuery.elasticSerchTest();
         return Ret.me().setData(list);
     }
