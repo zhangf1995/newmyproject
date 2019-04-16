@@ -13,7 +13,15 @@ spring:
         cluster-name: elasticsearch
         repositories:
           enabled: true
+    rabbitmq:
+      username: guest
+      password: guest
+      host: 127.0.0.1
+      port: 5672
+      publisher-confirms: true  #  消息发送到交换机确认机制,是否确认回调
 
 mybatis:
   mapper-locations: classpath:mapping/*.xml
   type-aliases-package: com.myproject.domain,com.myproject.query
+
+
