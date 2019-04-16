@@ -31,9 +31,9 @@ public class ExchangeConfig {
         return directExchange;
     }
 
-    //fanout交换器
+/*    //fanout交换器
     @Bean
     public FanoutExchange fanoutExchange(){
         return null;
-    }
+    }*/
 }

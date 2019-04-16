@@ -2,11 +2,11 @@ package com.myproject.rabbitmq.rabbitmqConfig;
 
 import com.myproject.rabbitmq.exchangeConfig.ExchangeConfig;
 import com.myproject.rabbitmq.queueConfig.QueueConfig;
-import com.rabbitmq.client.ConnectionFactory;
 import org.springframework.amqp.core.AcknowledgeMode;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +60,8 @@ public class RabbitmqConfig {
 
     @Bean
     public SimpleMessageListenerContainer simpleMessageListenerContainer_one(){
-        SimpleMessageListenerContainer simpleMessageListenerContainer = new SimpleMessageListenerContainer(connectionFactory);
+        SimpleMessageListenerContainer simpleMessageListenerContainer = new SimpleMessageListenerContainer();
+        simpleMessageListenerContainer.setConnectionFactory(connectionFactory);
         Queue[] queues = {queueConfig.queueOne(), queueConfig.queueTwo()};
         simpleMessageListenerContainer.addQueues(queues);
         simpleMessageListenerContainer.setExposeListenerChannel(true);
