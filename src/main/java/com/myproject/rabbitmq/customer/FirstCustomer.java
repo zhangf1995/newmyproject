@@ -21,6 +21,9 @@ public class FirstCustomer {
         System.out.println("接受成功");
         System.out.println(new String(message.getBody()));
         System.out.println(message.getMessageProperties().getDeliveryTag());
+        //手动确认删除队列的消息
         channel.basicAck(message.getMessageProperties().getDeliveryTag(),false);
+        //手动确认不删除
+        //channel.basicNack(message.getMessageProperties().getDeliveryTag(),false,true);
     }
 }
