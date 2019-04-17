@@ -14,9 +14,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class FirstCustomer {
 
-    @RabbitListener(queues = {"first_queue","second_queue"})
-    public void message(Message message, Channel channel){
+    @RabbitListener(queues = {"first_queue"})
+    public void message(String message, Channel channel) throws InterruptedException {
+        Thread.sleep(1000);
         System.out.println("接受成功");
-        System.out.print(new String(message.getBody()));
+        System.out.println(message);
     }
 }

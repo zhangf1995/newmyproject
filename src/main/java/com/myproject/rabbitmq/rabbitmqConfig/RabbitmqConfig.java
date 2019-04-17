@@ -54,22 +54,6 @@ public class RabbitmqConfig {
         return BindingBuilder.bind(queueConfig.queueTwo()).to(exchangeConfig.directExchange()).with(RabbitmqConfig.QUEUE_TWO);
     }
 
-    /**
-     * 监听模式
-     */
-
-    @Bean
-    public SimpleMessageListenerContainer simpleMessageListenerContainer_one(){
-        SimpleMessageListenerContainer simpleMessageListenerContainer = new SimpleMessageListenerContainer();
-        simpleMessageListenerContainer.setConnectionFactory(connectionFactory);
-        Queue[] queues = {queueConfig.queueOne(), queueConfig.queueTwo()};
-        simpleMessageListenerContainer.addQueues(queues);
-        simpleMessageListenerContainer.setExposeListenerChannel(true);
-        simpleMessageListenerContainer.setMaxConcurrentConsumers(5);
-        simpleMessageListenerContainer.setConcurrentConsumers(1);
-        simpleMessageListenerContainer.setAcknowledgeMode(AcknowledgeMode.MANUAL); //设置确认模式手工确认
-        return simpleMessageListenerContainer;
-    }
 
     /**
      * 定义rabbit template用于数据的接收和发送
