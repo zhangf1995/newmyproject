@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
  * @create: 2019-04-16 15:12
  **/
 @Component
-public class firstSender {
+public class FirstSender {
 
     @Autowired
     private RabbitTemplate rabbitTemplate;

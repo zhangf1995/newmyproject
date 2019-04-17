@@ -5,6 +5,7 @@ import com.myproject.es.esDomain.EsTest;
 import com.myproject.es.esQueryUtils.EsTestQuery;
 import com.myproject.es.esService.EsTestService;
 import com.myproject.query.Ret;
+import com.myproject.rabbitmq.provider.FirstSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,8 @@ public class TestController {
     private EsTestService esTestService;
     @Autowired
     private EsTestQuery esTestQuery;
+    @Autowired
+    private FirstSender firstSender;
 
     @RequestMapping("/test1")
     public Integer test1(){
@@ -66,5 +69,11 @@ public class TestController {
         ConcurrentHashMap<String,String> concurrentHashMap = new ConcurrentHashMap<>();
         List<EsTest> list = esTestQuery.elasticSerchTest();
         return Ret.me().setData(list);
+    }
+
+    //rabbitmq测试
+    @RequestMapping("/rqTest")
+    public void rqTest(){
+        firstSender.send("测试一哈");
     }
 }
