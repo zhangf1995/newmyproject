@@ -21,4 +21,8 @@ public class FirstSender {
     public void send(String message){
         rabbitTemplate.convertAndSend(RabbitmqConfig.EXCHANGE,RabbitmqConfig.QUEUE_ONE,message);
     }
+
+    public void sendTwo(String message){
+        rabbitTemplate.convertAndSend(RabbitmqConfig.EXCHANGE,RabbitmqConfig.QUEUE_TWO,message);
+    }
 }

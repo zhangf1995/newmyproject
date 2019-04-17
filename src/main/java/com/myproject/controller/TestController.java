@@ -74,6 +74,7 @@ public class TestController {
     //rabbitmq测试
     @RequestMapping("/rqTest")
     public void rqTest(){
-        firstSender.send("测试一哈");
+        firstSender.send("one测试");
+        firstSender.sendTwo("two测试");
     }
 }

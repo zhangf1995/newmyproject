@@ -13,6 +13,8 @@ import org.springframework.context.annotation.Configuration;
 public class MsgSendConfirmCallBack implements RabbitTemplate.ConfirmCallback{
     @Override
     public void confirm(CorrelationData correlationData, boolean b, String s) {
-        System.out.println("发送成功");
+        if(b){
+            System.out.println("发送成功");
+        }
     }
 }
