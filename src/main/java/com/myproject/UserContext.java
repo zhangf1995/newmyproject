@@ -13,10 +13,8 @@ public class UserContext {
 
     public void setSysUser(SysUser user) {
         SysUser sysUser = local.get();
-        synchronized (this) {
-            if (null == sysUser) {
-                local.set(user);
-            }
+        if (null == sysUser) {
+            local.set(user);
         }
     }
 
