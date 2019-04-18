@@ -20,10 +20,22 @@ public class FirstCustomer {
     public void message(Message message, Channel channel) throws IOException {
         System.out.println("接受成功");
         System.out.println(new String(message.getBody()));
-        System.out.println(message.getMessageProperties().getDeliveryTag());
         //手动确认删除队列的消息
         channel.basicAck(message.getMessageProperties().getDeliveryTag(),false);
         //手动确认不删除
         //channel.basicNack(message.getMessageProperties().getDeliveryTag(),false,true);
     }
+
+  /*  @RabbitListener(queues = {"delay_queue"})
+    public void delayMessage(Message message,Channel channel) throws IOException {
+        System.out.println("延迟成功");
+        channel.basicAck(message.getMessageProperties().getDeliveryTag(),false);
+    }*/
+
+  @RabbitListener(queues = {"dlx_queue"})
+  public void dlxMessage(Message message,Channel channel) throws IOException {
+      System.out.println("死信队列");
+      System.out.println(new String(message.getBody()));
+      channel.basicAck(message.getMessageProperties().getDeliveryTag(),false);
+  }
 }

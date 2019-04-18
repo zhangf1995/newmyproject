@@ -31,6 +31,20 @@ public class ExchangeConfig {
         return directExchange;
     }
 
+    //延迟交换器
+    @Bean
+    public DirectExchange directDelayExchange(){
+        DirectExchange directExchange = new DirectExchange(RabbitmqConfig.DELAY_EXCHANGE, true, false);
+        return directExchange;
+    }
+
+    //死信交换器
+    @Bean
+    public DirectExchange dlxExchange(){
+        DirectExchange directExchange = new DirectExchange(RabbitmqConfig.DLX_EXCHANGE, true, false);
+        return directExchange;
+    }
+
 /*    //fanout交换器
     @Bean
     public FanoutExchange fanoutExchange(){

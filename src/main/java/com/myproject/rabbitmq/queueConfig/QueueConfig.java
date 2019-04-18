@@ -5,6 +5,9 @@ import org.springframework.amqp.core.Queue;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @program: myproject
  * @description: 队列配置类
@@ -28,5 +31,20 @@ public class QueueConfig {
     @Bean
     public Queue queueTwo(){
         return new Queue("second_queue",true,false,false);
+    }
+
+    //延迟队列,适用场景一:秒杀下单加入队列，一定时间内没有付款，进行业务操作
+    @Bean
+    public Queue queueDelay(){
+        Map<String, Object> arguments = new HashMap<>();
+        arguments.put("x-message-ttl",10000);
+        arguments.put("x-dead-letter-exchange",RabbitmqConfig.DLX_EXCHANGE);
+        arguments.put("x-dead-letter-routing-key",RabbitmqConfig.QUEUE_DLX);
+        return new Queue("delay_queue",true,false,false,arguments);
+    }
+
+    @Bean
+    public Queue dlxQueue(){
+        return new Queue("dlx_queue",true,false,false);
     }
 }

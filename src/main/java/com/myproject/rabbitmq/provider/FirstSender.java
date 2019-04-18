@@ -25,4 +25,8 @@ public class FirstSender {
     public void sendTwo(String message){
         rabbitTemplate.convertAndSend(RabbitmqConfig.EXCHANGE,RabbitmqConfig.QUEUE_TWO,message);
     }
+
+    public void sendDelay(String message){
+        rabbitTemplate.convertAndSend(RabbitmqConfig.DELAY_EXCHANGE,RabbitmqConfig.QUEUE_DELAY,message);
+    }
 }

@@ -77,4 +77,10 @@ public class TestController {
         firstSender.send("one测试");
         firstSender.sendTwo("two测试");
     }
+
+    //延迟测试
+    @RequestMapping("/delayTest")
+    public void delayTest(){
+        firstSender.sendDelay("延迟测试");
+    }
 }
