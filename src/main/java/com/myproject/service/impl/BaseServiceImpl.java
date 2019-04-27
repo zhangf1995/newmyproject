@@ -142,8 +142,8 @@ public abstract class BaseServiceImpl<T extends BaseDomain> implements IBaseServ
 	
 	@Transactional
 	@Override
-	public void deleteLogic(String[] idArr) {
-		for (String id : idArr) {
+	public void deleteLogic(Serializable[] idArr) {
+		for (Serializable id : idArr) {
 			T t = get(id);
 			if(t.getSystemData()!=null && BoolConsts.YES == t.getSystemData()){
 				throw BisException.me().setCode(ICodes.SYSDATA_DELETE_FORBIDDEN);

@@ -14,10 +14,10 @@ public interface BaseMapper<T extends BaseDomain> {
 	void updateByPrimaryKey(T o);
 	void updateByPrimaryKeySelective(T o);
 	T selectByPrimaryKey(Serializable id);
-	
+
 	void deleteBatch(Serializable[] idArr);
 	int queryTotal(BaseQuery query);
 	List<T> query(BaseQuery query);
-	
-	void deleteLogic(String[] idArr);
+
+	void deleteLogic(Serializable[] idArr);
 }

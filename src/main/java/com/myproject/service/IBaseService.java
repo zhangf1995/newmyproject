@@ -44,5 +44,5 @@ public interface IBaseService<T extends BaseDomain> {
 	 * 逻辑删除
 	 * @param idArr
 	 */
-	void deleteLogic(String[] idArr);
+	void deleteLogic(Serializable[] idArr);
 }

@@ -28,7 +28,7 @@ spring:
             enabled: true
 
 mybatis:
-  mapper-locations: classpath:mapping/*.xml
+  mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.myproject.domain,com.myproject.query
 
 

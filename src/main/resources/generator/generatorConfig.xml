@@ -116,7 +116,7 @@
 		
         
         <!-- 指定要逆向分析哪些表：根据表要创建javaBean -->
-		<table tableName="t_sys_user"
+		<table tableName="t_order"
 			enableInsert="true"
             enableDeleteByPrimaryKey="true"
             enableSelectByPrimaryKey="true"
