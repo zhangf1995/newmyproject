@@ -4,6 +4,7 @@ import com.myproject.consts.WebConsts;
 import com.myproject.core.consts.ICodes;
 import com.myproject.domain.Order;
 import com.myproject.domain.Stock;
+import com.myproject.domain.SysUser;
 import com.myproject.es.esDomain.EsTest;
 import com.myproject.es.esQueryUtils.EsTestQuery;
 import com.myproject.es.esService.EsTestService;
@@ -11,6 +12,10 @@ import com.myproject.query.Ret;
 import com.myproject.rabbitmq.provider.FirstSender;
 import com.myproject.service.IOrderService;
 import com.myproject.service.IStockService;
+import com.myproject.service.ISysUserService;
+import com.myproject.utils.MyThreadOne;
+import com.myproject.utils.MyThred;
+import org.apache.shiro.authz.annotation.RequiresUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -39,14 +44,16 @@ public class TestController {
     private IStockService stockService;
     @Autowired
     private IOrderService orderService;
+    @Autowired
+    private ISysUserService sysUserService;
 
-/*
-    public static ConcurrentHashMap<Integer, Integer> map = new ConcurrentHashMap<>();
+    /*
+        public static ConcurrentHashMap<Integer, Integer> map = new ConcurrentHashMap<>();
 
-    static {
-        map.put(1, 10);
-    }
-*/
+        static {
+            map.put(1, 10);
+        }
+    */
     @RequestMapping("/test1")
     public Integer test1() {
         int a = 1 / 0;
@@ -143,4 +150,70 @@ public class TestController {
         stockService.update(stock);
         return Ret.me();
     }*/
+
+    /**
+     * 批量插入10万条数据,多线程 90s
+     *
+     * @return
+     */
+    @RequestMapping("/saveUsers")
+    public Ret saveUsers() {
+        Thread thread = new Thread();
+        for (int a = 0; a < 5; a++) {
+            List<SysUser> users = new ArrayList<>();
+            for (int i = 0; i < 20000; i++) {
+                SysUser sysUser = new SysUser();
+                String id = String.valueOf(UUID.randomUUID().toString().replace("-", ""));
+                sysUser.setId(id);
+                sysUser.setPassword("111");
+                sysUser.setUsername("aaa");
+                users.add(sysUser);
+            }
+            new MyThred(sysUserService, users).start();
+        }
+        return Ret.me();
+    }
+
+    /**
+     * 批量插入10万数据 单线程 180s
+     * @return
+     */
+        @RequestMapping("/saveUsers1")
+    public Ret saveUsers1() {
+        List<SysUser> users = new ArrayList<>();
+        for (int i = 0; i < 100000; i++) {
+            SysUser sysUser = new SysUser();
+            String id = String.valueOf(UUID.randomUUID().toString().replace("-", ""));
+            sysUser.setId(id);
+            sysUser.setPassword("111");
+            sysUser.setUsername("aaa");
+            users.add(sysUser);
+        }
+        new MyThred(sysUserService, users).start();
+        return Ret.me();
+    }
+
+    /**
+     * 批量插入10万数据，多线程优化 1s
+     * @return
+     */
+    @RequestMapping("/saveUsersTwo")
+    public Ret saveUsersTwo() {
+        System.out.println("two");
+        Thread thread = new Thread();
+        for (int a = 0; a < 10; a++) {
+            List<SysUser> users = new ArrayList<>();
+            for (int i = 0; i < 100000; i++) {
+                SysUser sysUser = new SysUser();
+                String id = String.valueOf(UUID.randomUUID().toString().replace("-", ""));
+                sysUser.setId(id);
+                sysUser.setPassword("111");
+                sysUser.setUsername("aaa");
+                users.add(sysUser);
+            }
+            new MyThreadOne(sysUserService, users).start();
+        }
+        return Ret.me();
+    }
+
 }

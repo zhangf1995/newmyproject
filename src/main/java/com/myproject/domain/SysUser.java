@@ -5,7 +5,7 @@ package com.myproject.domain;
  */
 public class SysUser extends BaseDomain {
     /**
-     * 
+     *
      */
     private String id;
 
@@ -20,16 +20,14 @@ public class SysUser extends BaseDomain {
     private String password;
 
     /**
-     * 
-     * @return id 
+     * @return id
      */
     public String getId() {
         return id;
     }
 
     /**
-     * 
-     * @param id 
+     * @param id
      */
     public void setId(String id) {
         this.id = id == null ? null : id.trim();
@@ -37,7 +35,8 @@ public class SysUser extends BaseDomain {
 
     /**
      * 用户名
-     * @return username 
+     *
+     * @return username
      */
     public String getUsername() {
         return username;
@@ -45,7 +44,8 @@ public class SysUser extends BaseDomain {
 
     /**
      * 用户名
-     * @param username 
+     *
+     * @param username
      */
     public void setUsername(String username) {
         this.username = username == null ? null : username.trim();
@@ -53,7 +53,8 @@ public class SysUser extends BaseDomain {
 
     /**
      * 密码
-     * @return password 
+     *
+     * @return password
      */
     public String getPassword() {
         return password;
@@ -61,9 +62,16 @@ public class SysUser extends BaseDomain {
 
     /**
      * 密码
-     * @param password 
+     *
+     * @param password
      */
     public void setPassword(String password) {
         this.password = password == null ? null : password.trim();
+    }
+
+    @Override
+    public String toString() {
+
+        return "{id=" + id + ",username=" + username + ",password=" + password + "}";
     }
 }
