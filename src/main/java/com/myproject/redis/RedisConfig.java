@@ -12,7 +12,7 @@ import org.springframework.data.redis.core.RedisTemplate;
  * @create: 2019-05-04 11:41
  **/
 @Configuration
-public class redisConfig {
+public class RedisConfig {
 
     @Autowired
     private RedisTemplate redisTemplate;
@@ -28,11 +28,9 @@ public class redisConfig {
         try {
             //任意类型转换成String
             String val = beanToString(value);
-
             if (val == null || val.length() <= 0) {
                 return false;
             }
-
             redisTemplate.opsForValue().set(key, val);
             return true;
         } catch (Exception e) {
@@ -72,7 +70,6 @@ public class redisConfig {
         if (value == null || value.length() <= 0 || clazz == null) {
             return null;
         }
-
         if (clazz == int.class || clazz == Integer.class) {
             return (T) Integer.valueOf(value);
         } else if (clazz == long.class || clazz == Long.class) {
@@ -90,7 +87,6 @@ public class redisConfig {
      * @return String
      */
     private <T> String beanToString(T value) {
-
         if (value == null) {
             return null;
         }
