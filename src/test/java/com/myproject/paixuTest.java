@@ -2,6 +2,9 @@ package com.myproject;
 
 import org.junit.Test;
 
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.locks.ReentrantLock;
+
 /**
  * @program: myproject
  * @description: 排序测试
@@ -34,11 +37,12 @@ public class paixuTest {
 
     //快排
     public static void main(String[] args) {
-        int[] arr = {6, 1, 2, 7, 9, 3, 4, 5, 10, 8};
+   /*     int[] arr = {6, 1, 2, 7, 9, 3, 4, 5, 10, 8};
         kuaiPaiTest(0, arr.length - 1, arr);
         for (int i : arr) {
             System.out.println(i);
-        }
+        }*/
+        deadSyn();
     }
 
     @Test
@@ -66,5 +70,36 @@ public class paixuTest {
         arr[i] = temp;
         kuaiPaiTest(begin, i - 1, arr);
         kuaiPaiTest(i + 1, end, arr);
+    }
+
+    @Test
+    public static void deadSyn() {
+        Integer a = 1;
+        Integer b = 2;
+        ReentrantLock lock = new ReentrantLock();
+        new Thread(() -> {
+            synchronized (a) {
+                try {
+                    Thread.sleep(1000);
+                    System.out.println("thread1拿不到b");
+                } catch (InterruptedException e) {
+                }
+                synchronized (b) {
+                    System.out.println("thread1");
+                }
+            }
+        }).start();
+        new Thread(() -> {
+            synchronized (b) {
+                try {
+                    Thread.sleep(1000);
+                    System.out.println("thread2拿不到a");
+                } catch (InterruptedException e) {
+                }
+                synchronized (a) {
+                    System.out.println("thread2");
+                }
+            }
+        }).start();
     }
 }
